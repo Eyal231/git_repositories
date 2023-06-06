@@ -1,0 +1,65 @@
+#!/bin/bash
+
+while true; do
+    echo -n "users> "
+    read command
+
+    case $command in
+        new)
+            echo -n "Enter username: "
+            read username
+            password=$(shuf -i 10000-99999 -n 1)
+
+            # Create user file
+            echo "name: $username" > "${username}.user"
+            echo "password: $password" >> "${username}.user"
+
+            echo "Created user $username"
+            ;;
+        del)
+            echo -n "Enter username: "
+            read username
+
+            # Check if user file exists
+            if [ -f "${username}.user" ]; then
+                rm "${username}.user"
+                echo "Deleted user $username"
+            else
+                echo "No user $username"
+            fi
+            ;;
+        find)
+            echo -n "Enter username: "
+            read username
+
+            # Check if user file exists
+            if [ -f "${username}.user" ]; then
+                echo "user: $username"
+                echo "pass: $(grep -Po '(?<=password: ).*' "${username}.user")"
+            else
+                echo "No user $username"
+            fi
+            ;;
+        list)
+            # List all user files
+            files=(./*.user)
+            if [ ${#files[@]} -eq 0 ]; then
+                echo "No users"
+            else
+                for file in "${files[@]}"; do
+			username=$(grep -Po '(?<=name: ).*' "$file")
+		       	echo "$username"
+                done
+            fi
+            ;;
+        exit)
+            exit 0
+            ;;
+        *)
+            echo "Invalid command"
+            ;;
+    esac
+
+    echo
+done
+

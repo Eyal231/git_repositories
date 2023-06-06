@@ -23,7 +23,11 @@ while true
                                      fi
                                      ;;
                          exit)
-                               echo exit=1
+                                 if [ $command = exit ]; then
+					 echo "thenk you for your time"
+					 break;
+                              fi
+
 			       ;;
 
                         esac
