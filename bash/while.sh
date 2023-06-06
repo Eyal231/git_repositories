@@ -1,4 +1,5 @@
 #!/bin/bash
+#!/work/git_repositories/bash/
 
 ulib=$HOME/work/git_repositories/bash/users
 pwb="$(pwd)/users"
@@ -22,12 +23,36 @@ while true
                                              echo "name allredy exsist"
                                      fi
                                      ;;
+## the list command isnt work yet
+			     list)
+				     ls -1 | grep '$pwb/*.user' | sed 's/\.user$//' | tee list
+				     ;;
+			     del)
+				     echo -n "enter user to delete : "
+				     read del_name
+
+				     if [ -f "$pwb/"${del_name}.user"" ]; then
+					     rm "$pwb/"${del_name}.user""
+					     echo "$del_name was delited"
+				     else 
+					     echo "$del_name dosen't exeist in the list. "
+				     fi
+				     ;;
+			     show)
+				     echo -n "enter name to chack ditailes : "
+				     read chack_name
+
+				     if [ -f "$pwb/"${chack_name}.user"" ]; then
+					     cat "$pwb/"${chack_name}.user""
+				     else
+					     echo "user $chack_name is not in the list"
+				     fi
+				     ;;
                          exit)
                                  if [ $command = exit ]; then
 					 echo "thenk you for your time"
 					 break;
                               fi
-
 			       ;;
 
                         esac
