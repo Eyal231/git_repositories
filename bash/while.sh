@@ -23,9 +23,33 @@ while true
                                              echo "name allredy exsist"
                                      fi
                                      ;;
-## the list command isnt work yet
-			     list)
-				     ls -1 | grep '$pwb/*.user' | sed 's/\.user$//' | tee list
+		list)
+			list=$(find "$pwb" -name "*.user" -type f -printf "%f\n" | sort)
+			for file in $list; do
+				filename=$(basename "$file" .user)
+				echo "$filename"
+			done
+
+   # if [ -f ${#file[@]} -eq 0 ]; then
+      #  echo "No users"
+   # else
+      ##  output_file="user_list.txt"  # Name of the output file
+      ## rm -f "$output_file"  # Remove the file if it already exists
+
+     #   for file in "${files[@]}"; do
+       #     username=$(sed -n 's/^name: \(.*\)/\1/p' "$file")
+          #  echo "$username" <> "$output_file"
+       # done
+
+       # if [ -s "$output_file" ]; then
+       #     cat "$output_file"  # Print the contents of the output file
+       # else
+       #     echo "No users"
+       # fi
+
+       # rm -f "$output_file"  # Remove the output file
+   # fi
+   
 				     ;;
 			     del)
 				     echo -n "enter user to delete : "
