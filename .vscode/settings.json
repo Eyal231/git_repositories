@@ -1,1 +1,4 @@
-{}
+{
+    "git.requireGitUserConfig": true,
+    "github.gitProtocol": "ssh"
+}
