@@ -1,4 +1,5 @@
 {
     "git.requireGitUserConfig": true,
-    "github.gitProtocol": "ssh"
+    "github.gitProtocol": "ssh",
+    "python.analysis.typeCheckingMode": "basic"
 }
